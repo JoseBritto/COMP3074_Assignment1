@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Assignment1</string>
+    <string name="main_button_text">Find My Pay</string>
+    <string name="your_total_payout_is">Your total payout is</string>
+    <string name="taxes_output_template">And you owe $XXX in taxes</string>
+    <string name="overtime_output_template">Of which $XXX were for overtime</string>
+    <string name="pay_output_template">You worked for $XXX</string>
+    <string name="at_the_rate_of">At the rate of</string>
+    <string name="per_hour">per hour</string>
+    <string name="hours">hours</string>
+    <string name="i_worked">I worked</string>
+</resources>
