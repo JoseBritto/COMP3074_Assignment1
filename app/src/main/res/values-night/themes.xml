@@ -3,6 +3,9 @@
     <style name="Base.Theme.Assignment1" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <item name="backgroundColor">@color/material_dynamic_secondary10</item>
+        <item name="android:backgroundTint">@color/material_dynamic_secondary10</item>
     </style>
 
 

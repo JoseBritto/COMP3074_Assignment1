@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment1</string>
+    <string name="app_name">What Pay?</string>
     <string name="main_button_text">Find My Pay</string>
     <string name="your_total_payout_is">Your total payout is</string>
     <string name="taxes_output_template">And you owe $XXX in taxes</string>

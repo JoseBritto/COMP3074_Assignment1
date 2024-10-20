@@ -3,10 +3,17 @@
     <style name="Base.Theme.Assignment1" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="backgroundColor">@color/material_dynamic_secondary90</item>
+        <item name="android:background">@color/material_dynamic_secondary90</item>
     </style>
 
     <style name="Theme.Assignment1" parent="Base.Theme.Assignment1" />
 
+    <style name="ToolbarTheme" parent="Theme.Assignment1">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
     <style name="main_button">
         <item name="android:backgroundTint">@color/material_dynamic_primary40</item>
         <item name="android:textAlignment">center</item>

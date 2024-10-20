@@ -1,6 +1,8 @@
 package ca.georgebrown.josebritto.assignment1;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -81,6 +85,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() != R.id.about_menu_item)
+            return super.onOptionsItemSelected(item);
+        Toast.makeText(this,"Yes, It works!", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
     private void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(hoursInput.getWindowToken(), 0);
@@ -96,5 +114,8 @@ public class MainActivity extends AppCompatActivity {
         totalDisplay = findViewById(R.id.totalpay);
         outputGroup = findViewById(R.id.outputLayout);
         outputGroup.setVisibility(View.INVISIBLE);
+
+        Toolbar actionbar = findViewById(R.id.toolbar);
+        setSupportActionBar(actionbar);
     }
 }
