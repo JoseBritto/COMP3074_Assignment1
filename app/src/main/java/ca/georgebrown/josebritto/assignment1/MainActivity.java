@@ -21,17 +21,15 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private EditText hoursInput;
     private EditText rateInput;
     private Button mainButton;
-
     private TextView payOutput;
     private TextView overtimeOutput;
     private TextView taxesOutput;
     private TextView totalDisplay;
-
     private View outputGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,45 +43,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         initializeUI();
-        mainButton.setOnClickListener(v -> {
-            String rateValue = rateInput.getText().toString();
-            String hoursValue = hoursInput.getText().toString();
-            double rate, hours;
-            try{
-                hours = Double.parseDouble(hoursValue);
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please fill out your hours first!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            try{
-                rate = Double.parseDouble(rateValue);
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please fill out your hourly rate!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            double overTimeHours = hours - 40;
-            double regularHours = hours <= 40 ? hours : 40;
-            if(overTimeHours < 0)
-                overTimeHours = 0;
-            double overtimePay = overTimeHours * rate * 1.5;
-            double regularPay = regularHours * rate;
-            double pay = overtimePay + regularPay;
-            double tax = pay* 0.18;
-            double totalPay = pay - tax;
-
-            String payText = getString(R.string.pay_output_template).replace("XXX", String.format("%.2f", pay));
-            String overtimePayText = getString(R.string.overtime_output_template).replace("XXX", String.format("%.2f", overtimePay));
-            String taxesText = getString(R.string.taxes_output_template).replace("XXX", String.format("%.2f", tax));
-            String totalText = "$" + String.format("%.2f", totalPay);
-
-            payOutput.setText(payText);
-            overtimeOutput.setText(overtimePayText);
-            taxesOutput.setText(taxesText);
-            totalDisplay.setText(totalText);
-            hideKeyboard();
-            outputGroup.setVisibility(View.VISIBLE);
-        });
-
     }
 
     @Override
@@ -101,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void hideKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(hoursInput.getWindowToken(), 0);
-    }
+
+
 
     private void initializeUI() {
         hoursInput = findViewById(R.id.hours_input);
@@ -119,5 +76,62 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar actionbar = findViewById(R.id.toolbar);
         setSupportActionBar(actionbar);
+
+        rateInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if(hasFocus)
+                outputGroup.setVisibility(View.INVISIBLE);
+        });
+        hoursInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if(hasFocus)
+                outputGroup.setVisibility(View.INVISIBLE);
+        });
+
+        mainButton.setOnClickListener(v -> processOutput());
+    }
+
+    private void processOutput() {
+        String rateValue = rateInput.getText().toString();
+        String hoursValue = hoursInput.getText().toString();
+        double rate, hours;
+        try{
+            hours = Double.parseDouble(hoursValue);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please fill out your hours first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try{
+            rate = Double.parseDouble(rateValue);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please fill out your hourly rate!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        double overTimeHours = hours - 40;
+        double regularHours = hours <= 40 ? hours : 40;
+        if(overTimeHours < 0)
+            overTimeHours = 0;
+        double overtimePay = overTimeHours * rate * 1.5;
+        double regularPay = regularHours * rate;
+        double pay = overtimePay + regularPay;
+        double tax = pay* 0.18;
+        double totalPay = pay - tax;
+
+        String payText = getString(R.string.pay_output_template).replace("XXX", String.format("%.2f", pay));
+        String overtimePayText = getString(R.string.overtime_output_template).replace("XXX", String.format("%.2f", overtimePay));
+        String taxesText = getString(R.string.taxes_output_template).replace("XXX", String.format("%.2f", tax));
+        String totalText = "$" + String.format("%.2f", totalPay);
+
+        payOutput.setText(payText);
+        overtimeOutput.setText(overtimePayText);
+        taxesOutput.setText(taxesText);
+        totalDisplay.setText(totalText);
+        hideKeyboardAndClearFocus();
+        outputGroup.setVisibility(View.VISIBLE);
+    }
+
+    private void hideKeyboardAndClearFocus() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(hoursInput.getWindowToken(), 0);
+        hoursInput.clearFocus();
+        rateInput.clearFocus();
     }
 }
