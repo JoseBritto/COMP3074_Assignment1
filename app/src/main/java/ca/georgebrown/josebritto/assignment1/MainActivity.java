@@ -1,5 +1,6 @@
 package ca.georgebrown.josebritto.assignment1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() != R.id.about_menu_item)
             return super.onOptionsItemSelected(item);
-        Toast.makeText(this,"Yes, It works!", Toast.LENGTH_SHORT).show();
+        Intent about = new Intent(this, AboutActivity.class);
+        startActivity(about);
         return true;
     }
 
