@@ -9,4 +9,9 @@
     <string name="per_hour">per hour</string>
     <string name="hours">hours</string>
     <string name="i_worked">I worked</string>
+    <string name="pay_rate_hint">16.55</string>
+    <string name="hours_hint">40</string>
+    <string name="an_app_by_me">An app by Jose Britto Saaji</string>
+    <string name="my_student_id_display">Student ID: 101416601</string>
+    <string name="about_footer">COMP 3074 - Assignment 1</string>
 </resources>
